@@ -31,6 +31,12 @@ cd musalasoft-gateway-api
 npm install
 ```
 
+- generate swagger spec file
+
+```
+npm run swagger-autogen
+```
+
 - run the project
 
 ```
@@ -66,27 +72,11 @@ The folder structure of this app is explained below:
 
 Run and build MMK API with the following scripts:
 
-| Npm Script | Description                                                                                   |
-| ---------- | --------------------------------------------------------------------------------------------- |
-| `start`    | Runs full build and runs node on dist/server.js. Can be invoked with `npm start`              |
-| `devStart` | Full build. Runs ALL build tasks with all watch tasks. Can be invoked with `npm run devstart` |
-| `test`     | Runs build and run tests using mocha. Can be invoked with `npm run test`                      |
-
-## Testing
-
-The tests are written in jest and supertest
-
-```
-"Mocha": "^9.2.2",
-"Chai" :"^4.3.6"
-
-
-```
-
-```
-npm run test
-
-```
+| Npm Script        | Description                                                                                                                          |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `start`           | Runs full build and runs node on dist/server.js. Can be invoked with `npm start`                                                     |
+| `devStart`        | Full build. Runs ALL build tasks with all watch tasks. Can be invoked with `npm run devstart`                                        |
+| `swagger-autogen` | Runs swagger autogen and generates the swagger.json in the public static files folder. Can be invoked with `npm run swagger-autogen` |
 
 # Swagger
 
