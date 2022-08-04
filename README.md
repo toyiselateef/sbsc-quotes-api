@@ -58,7 +58,7 @@ The folder structure of this app is explained below:
 | **node_modules**    | Contains all npm dependencies                                                    |
 | **public**          | Contains static files to be served                                               |
 | **src**             | Contains source code that will be compiled to the dist dir                       |
-| **src/config**      | Database configuration, basically postgres                                       |
+| **src/config**      | Database configuration, basically json file to be read from                      |
 | **src/controllers** | defined Controllers functions to serve the projects' various routes routes.      |
 | **src/services**    | Express services/functions to serve various controllers                          |
 | **src/models**      | Mongoose schema for Gateway and Pheripheral devices                              |

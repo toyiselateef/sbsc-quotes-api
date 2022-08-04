@@ -1,11 +1,10 @@
 import { getUserFromAccount, addUserToAccount } from "./../config/db.js";
 
-const createUserService = (user) => {
-  const userOnDB = getUserFromAccount(user.email);
+const createUserService = async (user) => {
+  const userOnDB = await getUserFromAccount(user.email);
+  if (userOnDB.code == 200) return userOnDB;
 
-  if (userOnDB.code != 200) return userOnDB;
-
-  const addUserRes = addUserToAccount(user);
+  const addUserRes = await addUserToAccount(user);
   return addUserRes;
 };
 

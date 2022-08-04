@@ -1,85 +1,79 @@
 import fs from "fs";
+import fsp from "fs/promises";
 
-const getUserFromAccount = (user, cb) => {
+const getUserFromAccount = async (user) => {
+  //var file await fs.readFile("accounts.json", "utf8", function (err, data) {
   try {
-    fs.readFile("accounts.json", "utf8", function (err, data) {
-      if (err) {
-        return {
-          success: false,
-          code: 500,
-          message: "error occured while reading from Account",
-          error: err,
-        };
-      } else {
-        try {
-          var users = JSON.parse(data);
-          if (users[user] != undefined) {
-            return {
-              success: true,
-              code: 200,
-              message: "error occured while reading from Account",
-              data: users[user],
-            };
-          } else {
-            return {
-              success: false,
-              code: 404,
-              message: "could not find user",
-              error: err,
-            };
-          }
-        } catch (err) {
-          return {
-            success: false,
-            code: 500,
-            message: "error occured while reading from Account",
-            error: err,
-          };
-        }
-      }
+    var data = await fsp.readFile("public/accounts.json", {
+      encoding: "utf8",
     });
-  } catch (err) {
-    console.log(err);
-  }
-};
-const addUserToAccount = (user) => {
-  fs.readFile("accounts.json", "utf-8", function (err, data) {
-    if (err)
+    if (!data)
       return {
         success: false,
+        code: 500,
         message: "error occured while reading from Account",
         error: err,
       };
-    else {
-      try {
-        var users = JSON.parse(data);
-        users[user.email] = user;
-        var newUsers = JSON.stringify(users);
-        fs.writeFile("accounts.json", newUsers, "utf-8", function (err, data) {
-          if (err) {
-            return {
-              success: false,
-              message: "error occured while writing to Account",
-              error: err,
-            };
-          } else {
-            return {
-              success: true,
-              message: "user saved successfully",
-              data: data,
-            };
-          }
-        });
-      } catch (err) {
-        return {
-          success: false,
-          message: "error occured,could not write to Account",
-          error: err,
-        };
-      }
-      //console.log('Done!');
+
+    var users = JSON.parse(data);
+    var foundUser = users[user];
+    if (!foundUser) {
+      return {
+        success: false,
+        code: 404,
+        message: "could not find user",
+        error: err,
+      };
     }
-  });
+    return {
+      success: true,
+      code: 200,
+      message: "error occured while reading from Account",
+      data: foundUser,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      code: 500,
+      message: "error occured while reading from Account",
+      error: err,
+    };
+  }
+};
+const addUserToAccount = async (user) => {
+  try {
+    var data = await fsp.readFile("public/accounts.json", {
+      encoding: "utf8",
+    });
+
+    if (!data)
+      return {
+        success: false,
+        message: "error occured while reading from db",
+        error: err,
+      };
+
+    var users = JSON.parse(data);
+    users[user.email] = user;
+
+    var newUsers = JSON.stringify(users);
+    await fsp.writeFile("accounts.json", newUsers, {
+      encoding: "utf8",
+    });
+
+    return {
+      success: true,
+      message: "user saved successfully",
+      data: data,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: "error occured, could not write to Account file",
+      error: err,
+    };
+  }
+  //console.log('Done!');
 };
 
 export { getUserFromAccount, addUserToAccount };

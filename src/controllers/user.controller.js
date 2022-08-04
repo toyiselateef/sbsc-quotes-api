@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import createUserService from "./../services/user.service.js";
 import { Token } from "../middleware/auth.js";
@@ -6,6 +5,7 @@ import { getUserFromAccount } from "./../config/db.js";
 
 const createUser = async (req, res) => {
   // try{
+
   var hash = bcrypt.hash(req.body.password, 15);
   const password = hash;
   const user = {
@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
     });
   }
 
-  const resp = createUserService(user);
+  const resp = await createUserService(user);
 
   return res.status(resp.code).json(resp);
 };
@@ -29,12 +29,13 @@ const createUser = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    var existingUser = getUserFromAccount(email);
+    var existingUser = await getUserFromAccount(email);
     if (!existingUser) return {};
 
     bcrypt.compare(password, existingUser.password, (err, result) => {
       if (err) {
         return res.status(401).json({
+          success: false,
           message: "Not authorized",
         });
       }
@@ -50,12 +51,14 @@ const login = async (req, res) => {
           token,
         });
       }
-      return res.status(401).json({
-        message: "Invalid details",
-      });
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid details" });
     });
   } catch (err) {
-    res.status(500).json({ message: "Server error.", error: err });
+    res
+      .status(500)
+      .json({ success: false, message: "Server error.", error: err });
   }
   return;
 };
