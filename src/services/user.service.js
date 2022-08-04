@@ -7,13 +7,6 @@ const createUserService = (user) => {
 
   const addUserRes = addUserToAccount(user);
   return addUserRes;
-  // if()
-  //   return {
-  //     success: true,
-  //     code: 201,
-  //     message: "user created successfully",
-  //     data: addUserRes,
-  //   };
 };
 
 export default createUserService;

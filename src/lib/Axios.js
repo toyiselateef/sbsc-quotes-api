@@ -11,7 +11,7 @@ const axiosGet = async (
   try {
     const axiosConfig = {
       method: "GET",
-      url: `${baseUrl}/${resourceUrl}`,
+      url: `https://${baseUrl}/${resourceUrl}`,
       params: params,
       headers: {
         "Content-Type": "application/json",

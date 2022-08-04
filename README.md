@@ -1,6 +1,6 @@
-# mulasa-gateway-api-ben
+# sbsc-quotes-api
 
-The main purpose of this repository is to show a simple microservice that uses mongoDB as database provider. The Rest APIs will be using the Swagger (OpenAPI) Specification, and supports cloud postgres and redis lab.
+The main purpose of this repository is to show a simple microservice that uses provides quotes on request to logon users. The Rest APIs will be using the Swagger (OpenAPI) Specification, and reads from json file to authenticate users.
 
 ## Environment vars
 
@@ -15,14 +15,13 @@ This project uses the following environment variables:
 # Pre-requisites
 
 - Install [Node.js](https://nodejs.org/en/) version 16.8.0
-- Install Mongoose version 6.2.9
 
 # Getting started
 
 - Clone the repository
 
 ```
-git clone  https://github.com/toyiselateef/musalasoft_gateway_api.git
+git clone  https://github.com/toyiselateef/sbsc_quotes_api.git
 ```
 
 - Install dependencies
@@ -32,11 +31,7 @@ cd musalasoft-gateway-api
 npm install
 ```
 
-- Build and run the project
-
-```
-npm run build
-```
+- run the project
 
 ```
 npm run start

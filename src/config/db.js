@@ -1,42 +1,46 @@
 import fs from "fs";
 
 const getUserFromAccount = (user, cb) => {
-  fs.readFile("accounts.json", "utf8", function (err, data) {
-    if (err) {
-      return {
-        success: false,
-        code: 500,
-        message: "error occured while reading from Account",
-        error: err,
-      };
-    } else {
-      try {
-        var users = JSON.parse(data);
-        if (users[user] != undefined) {
-          return {
-            success: true,
-            code: 200,
-            message: "error occured while reading from Account",
-            data: users[user],
-          };
-        } else {
-          return {
-            success: false,
-            code: 404,
-            message: "could not find user",
-            error: err,
-          };
-        }
-      } catch (err) {
+  try {
+    fs.readFile("accounts.json", "utf8", function (err, data) {
+      if (err) {
         return {
           success: false,
           code: 500,
           message: "error occured while reading from Account",
           error: err,
         };
+      } else {
+        try {
+          var users = JSON.parse(data);
+          if (users[user] != undefined) {
+            return {
+              success: true,
+              code: 200,
+              message: "error occured while reading from Account",
+              data: users[user],
+            };
+          } else {
+            return {
+              success: false,
+              code: 404,
+              message: "could not find user",
+              error: err,
+            };
+          }
+        } catch (err) {
+          return {
+            success: false,
+            code: 500,
+            message: "error occured while reading from Account",
+            error: err,
+          };
+        }
       }
-    }
-  });
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 const addUserToAccount = (user) => {
   fs.readFile("accounts.json", "utf-8", function (err, data) {
