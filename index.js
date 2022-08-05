@@ -6,6 +6,8 @@ import userModule from "./src/routes/user.route.js";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 
+import { verifyToken } from "./src/middleware/auth.js";
+
 const app = express();
 
 const port = process.env.PORT || 3002;
@@ -46,6 +48,7 @@ app.use(
   // passport.authenticate("local", {
   //   session: false /*,failureRedirect:"/accessdenied"*/,
   // }),
+  verifyToken,
   quoteModule
 );
 
