@@ -1,1 +1,32 @@
-{"user@example.com":{"firstName":"abdullah","lastName":"Shahin","email":"user@example.com","password":"234","age":"28"},"user2@example.com":{"firstName":"Nick","lastName":"Persons","email":"user2@example.com","password":"234","age":"27"},"any@yahoo.com":{"username":"any","email":"any@yahoo.com","password":{}}}
+{
+  "user@example.com": {
+    "username": "abs",
+    "firstName": "abdullah",
+    "lastName": "Shahin",
+    "email": "user@example.com",
+    "password": "$2b$15$cDUvobTuBk.pdLyef.OJR.nGaGT5fzlYT36SxGbfjQeYooAysWByy",
+    "age": "28"
+  },
+  "user2@example.com": {
+    "username": "Nicks",
+    "firstName": "Nick",
+    "lastName": "Persons",
+    "email": "user2@example.com",
+    "password": "$2b$15$cDUvobTuBk.pdLyef.OJR.nGaGT5fzlYT36SxGbfjQeYooAysWByy",
+    "age": "27"
+  },
+  "any@yahoo.com": {
+    "username": "any",
+    "firstName": "any",
+    "lastName": "any",
+    "email": "any@yahoo.com",
+    "password": "$2b$15$cDUvobTuBk.pdLyef.OJR.nGaGT5fzlYT36SxGbfjQeYooAysWByy"
+  },
+  "any2@yahoo.com": {
+    "username": "any",
+    "firstName": "any",
+    "lastName": "any",
+    "email": "any2@yahoo.com",
+    "password": "$2b$15$34D1PNYnGuDG40rE439zx.qb/fuO2xuqh6423ha0Wi/u8wUfztLjS"
+  }
+}

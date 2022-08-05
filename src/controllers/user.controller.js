@@ -6,11 +6,13 @@ import { getUserFromAccount } from "./../config/db.js";
 const createUser = async (req, res) => {
   // try{
 
-  var hash = bcrypt.hash(req.body.password, 15);
+  var hash = await bcrypt.hash(req.body.password, 15);
   const password = hash;
   const user = {
     username: req.body.username,
     email: req.body.email,
+    firstName: req.body.firstname,
+    lastName: req.body.lastname,
     password,
   };
 
@@ -28,32 +30,39 @@ const createUser = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+
   try {
-    var existingUser = await getUserFromAccount(email);
-    if (!existingUser) return {};
-
-    bcrypt.compare(password, existingUser.password, (err, result) => {
-      if (err) {
-        return res.status(401).json({
-          success: false,
-          message: "Not authorized",
-        });
-      }
-
-      if (result) {
-        const token = Token(existingUser);
-        return res.status(200).json({
-          message: "User authorization successful",
-          user: {
-            username: existingUser.username,
-            email: existingUser.email,
-          },
-          token,
-        });
-      }
+    if (!email || !password) {
       return res
         .status(401)
         .json({ success: false, message: "Invalid details" });
+    }
+
+    var existingUser = await getUserFromAccount(email);
+    if (!existingUser) {
+      return res.status(401).json({
+        success: false,
+        message: "user not found, please create user",
+      });
+    }
+
+    var compareRes = await bcrypt.compare(password, existingUser.data.password);
+
+    if (!compareRes) {
+      return res.status(401).json({
+        success: false,
+        message: "Not authorized",
+      });
+    }
+
+    const token = Token(existingUser);
+    return res.status(200).json({
+      message: "User authorization successful",
+      user: {
+        username: existingUser.data.username,
+        email: existingUser.data.email,
+      },
+      token,
     });
   } catch (err) {
     res

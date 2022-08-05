@@ -56,6 +56,12 @@
                 },
                 "email": {
                   "example": "any"
+                },
+                "firstname": {
+                  "example": "any"
+                },
+                "lastname": {
+                  "example": "any"
                 }
               }
             }
